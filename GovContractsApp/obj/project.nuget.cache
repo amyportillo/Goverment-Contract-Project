@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "DgFK0SSJFY0=",
+  "success": true,
+  "projectFilePath": "/Users/amyportillo/Documents/Senior Project/GovContractsApp/GovContractsApp.csproj",
+  "expectedPackageFiles": [
+    "/Users/amyportillo/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/10.0.0/microsoft.extensions.dependencyinjection.abstractions.10.0.0.nupkg.sha512",
+    "/Users/amyportillo/.nuget/packages/microsoft.extensions.logging.abstractions/10.0.0/microsoft.extensions.logging.abstractions.10.0.0.nupkg.sha512",
+    "/Users/amyportillo/.nuget/packages/npgsql/10.0.1/npgsql.10.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}
