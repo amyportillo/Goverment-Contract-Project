@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/amyportillo/Documents/Senior Project/GovContractsApp/GovContractsApp.csproj": {}
+    "/Users/amyportillo/Documents/Goverment Contract Project/GovContractsApp/GovContractsApp.csproj": {}
   },
   "projects": {
-    "/Users/amyportillo/Documents/Senior Project/GovContractsApp/GovContractsApp.csproj": {
+    "/Users/amyportillo/Documents/Goverment Contract Project/GovContractsApp/GovContractsApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/amyportillo/Documents/Senior Project/GovContractsApp/GovContractsApp.csproj",
+        "projectUniqueName": "/Users/amyportillo/Documents/Goverment Contract Project/GovContractsApp/GovContractsApp.csproj",
         "projectName": "GovContractsApp",
-        "projectPath": "/Users/amyportillo/Documents/Senior Project/GovContractsApp/GovContractsApp.csproj",
+        "projectPath": "/Users/amyportillo/Documents/Goverment Contract Project/GovContractsApp/GovContractsApp.csproj",
         "packagesPath": "/Users/amyportillo/.nuget/packages/",
-        "outputPath": "/Users/amyportillo/Documents/Senior Project/GovContractsApp/obj/",
+        "outputPath": "/Users/amyportillo/Documents/Goverment Contract Project/GovContractsApp/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/amyportillo/.nuget/NuGet/NuGet.Config"
