@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GovContractsApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+232c70e843415017040814bd1bc7b61e92dcecb0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+deb7ed7506fb91a5035ca46b95629a45040549f7")]
 [assembly: System.Reflection.AssemblyProductAttribute("GovContractsApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GovContractsApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

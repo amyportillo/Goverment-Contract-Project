@@ -1,22 +1,15 @@
-﻿// Base .NET namespace for console, string, and date utilities
-using System;
-// Enables formatting dates as specific string patterns
+﻿using System;
 using System.Globalization;
-// Gives access to HttpStatusCode enum for readable logging
 using System.Net;
-// Provides HttpClient so we can call the SAM.gov REST API
 using System.Net.Http;
-// Allows us to use async/await for non-blocking I/O
 using System.Threading.Tasks;
-// Npgsql is the official PostgreSQL driver for .NET
 using Npgsql;
-// Brings in PostgreSQL-specific data types such as JSONB
 using NpgsqlTypes;
 
 class Program
 {
     // Hard-coded fallback key in case SAM_API_KEY env var is missing (use secrets in production!)
-    private const string DefaultApiKey = "APIKEY";
+    private const string DefaultApiKey = "SAM-88acca3e-20f4-4db1-9f63-0bb683547372";
     // Base endpoint for searching opportunities on SAM.gov
     private const string ApiBaseUrl = "https://api.sam.gov/opportunities/v2/search";
 
@@ -195,7 +188,7 @@ class Program
         HttpStatusCode statusCode,
         bool success,
         string postedFrom,
-        string postedTo)`
+        string postedTo)
     {
         const string insertSql = @"
             INSERT INTO api_fetch_audit (source_name, status_code, was_success, posted_from, posted_to)
