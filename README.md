@@ -1,40 +1,115 @@
 # GovContractsApp
 
-This program connects to the live SAM.gov API, retrieves JSON data, stores the raw response in a PostgreSQL JSONB column, and logs fetch timestamps for auditing and ETL traceability.
+GovContractsApp is a simple .NET console application that connects to the SAM.gov API, pulls federal contract opportunity data in JSON format, and stores the raw response in a PostgreSQL database. It also logs each API request so every data pull is tracked for auditing and ETL purposes.
 
-## Prerequisites
-- .NET 10 runtime/SDK (verify with `dotnet --list-runtimes`)
-- PostgreSQL instance reachable from your machine
-- SAM.gov API key
+---
 
-## Configuration
-Set the following environment variables (or edit `Program.cs` for local testing):
+## Overview
 
-- `SAM_API_KEY` – your SAM.gov API key
-- `GOV_CONTRACTS_DB` – PostgreSQL connection string (defaults to `Host=localhost;Port=5432;Username=postgres;Password=094825;Database=gov_contracts_dw`)
-- `SAM_POSTED_FROM` / `SAM_POSTED_TO` – optional date filters (defaults to the last 7 days, format `yyyy-MM-dd`)
+This project acts as the **raw data ingestion layer** for a government contracts data warehouse.
 
-On macOS/Linux you can export them in the shell before running the app:
+At a high level, the app:
+
+* Connects to the live SAM.gov Opportunities API
+* Retrieves contract data in JSON format
+* Stores the full raw JSON payload in PostgreSQL (JSONB column)
+* Logs metadata about each request (status code, timestamps, date filters, success flag)
+
+The goal is to maintain both:
+
+* A raw data feed (data lake style storage)
+* A clean audit trail for traceability and future ETL processing
+
+---
+
+## Requirements
+
+Before running the application, ensure you have:
+
+* .NET 10 SDK installed
+* PostgreSQL running and accessible
+* A valid SAM.gov API key
+
+To verify .NET installation:
 
 ```bash
-export SAM_API_KEY=""
-export GOV_CONTRACTS_DB="Host=localhost;Port=5432;Username=postgres;Password="";Database=gov_contracts_dw"
+dotnet --list-runtimes
+```
+
+---
+
+## Configuration
+
+The application uses environment variables for configuration.
+
+### Required
+
+* `SAM_API_KEY` – Your SAM.gov API key
+* `GOV_CONTRACTS_DB` – PostgreSQL connection string
+
+### Optional
+
+* `SAM_POSTED_FROM` – Start date filter (`yyyy-MM-dd`)
+* `SAM_POSTED_TO` – End date filter (`yyyy-MM-dd`)
+
+If no dates are provided, the application defaults to retrieving data from the last 7 days.
+
+### Example (macOS/Linux)
+
+```bash
+export SAM_API_KEY="your_api_key_here"
+export GOV_CONTRACTS_DB="Host=localhost;Port=5432;Username=postgres;Password=yourpassword;Database=gov_contracts_dw"
 export SAM_POSTED_FROM="2026-02-15"
 export SAM_POSTED_TO="2026-02-22"
 ```
 
-## Run the ETL fetcher
+---
+
+## Running the Application
+
+From the root project directory:
+
 ```bash
 dotnet run --project "GovContractsApp/GovContractsApp.csproj"
 ```
 
-## What it does
-1. Calls `https://api.sam.gov/opportunities/v2/search` with your API key.
-2. Prints the HTTP status and a preview of the JSON payload.
-3. Ensures two tables exist:
-   - `raw_api_data` for the JSONB payloads plus status metadata.
-   - `api_fetch_audit` for timestamped fetch logs (source, status code, posted date range, success flag).
-4. Inserts the latest payload into `raw_api_data` and records the attempt in `api_fetch_audit`.
-5. Reports the total number of raw records stored so far.
+---
 
-These tables give you both the raw data lake feed and an immutable audit trail for downstream ETL jobs.
+## Database Tables
+
+The application automatically ensures the following tables exist:
+
+### `raw_api_data`
+
+Stores:
+
+* Full JSON API response (JSONB)
+* HTTP status code
+* Posted date range
+* Insert timestamp
+
+### `api_fetch_audit`
+
+Stores:
+
+* Source name
+* Status code
+* Posted date range
+* Success flag
+* Fetch timestamp
+
+---
+
+## What Happens During Execution
+
+1. The app calls the SAM.gov Opportunities API.
+2. It prints the HTTP response status and a preview of the JSON payload.
+3. It inserts the full raw payload into `raw_api_data`.
+4. It logs the request in `api_fetch_audit`.
+5. It displays the total number of stored raw records.
+
+---
+
+## Purpose
+
+This application represents the first stage of an ETL pipeline. It focuses strictly on reliable data ingestion and audit logging. Structured transformations and relational mapping occur in later phases of the project.
